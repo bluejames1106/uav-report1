@@ -1,0 +1,95 @@
+* {
+    margin: 0; padding: 0; box-sizing: border-box;
+}
+
+body {
+    background: #0f172a;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex; justify-content: center; align-items: center;
+    height: 100vh; color: white;
+}
+
+.login-box {
+    background: #1e293b;
+    padding: 30px 40px;
+    border-radius: 20px;
+    width: 380px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+    border: 1px solid #334155;
+    text-align: center;
+}
+
+/* Kiểu dáng cho hệ thống Tab */
+.tab-container {
+    display: flex;
+    border-bottom: 2px solid #334155;
+    margin-bottom: 10px;
+}
+
+.tab {
+    flex: 1;
+    padding: 12px;
+    cursor: pointer;
+    color: #94a3b8;
+    font-weight: bold;
+    transition: 0.3s;
+    font-size: 15px;
+}
+
+.tab.active {
+    color: #38bdf8;
+    border-bottom: 3px solid #38bdf8;
+}
+
+.icon-header i {
+    font-size: 45px; color: #38bdf8; margin-bottom: 10px;
+    filter: drop-shadow(0 0 8px #38bdf8);
+}
+
+p { color: #94a3b8; font-size: 14px; margin-bottom: 25px; }
+
+.input-group { position: relative; margin-bottom: 15px; }
+.input-group i { position: absolute; left: 15px; top: 13px; color: #64748b; }
+
+.input-group input {
+    width: 100%; padding: 12px 12px 12px 45px;
+    background: #0f172a; border: 1px solid #334155;
+    border-radius: 10px; color: white; outline: none; transition: 0.3s;
+}
+
+.input-group input:focus { border-color: #38bdf8; box-shadow: 0 0 5px rgba(56, 189, 248, 0.3); }
+
+.btn-login {
+    width: 100%; padding: 12px; border: none; border-radius: 10px;
+    background: linear-gradient(135deg, #38bdf8, #0284c7);
+    color: white; font-weight: bold; cursor: pointer; font-size: 16px; margin-top: 10px;
+    transition: 0.3s;
+}
+
+.btn-login:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(56, 189, 248, 0.4); }
+
+#message { margin-top: 15px; font-size: 13px; min-height: 20px; }
+.error { color: #f87171; }
+.success { color: #4ade80; }
+
+/* Thêm đoạn này vào file login.css của bạn */
+
+.logo-wrapper {
+    margin-bottom: 10px;
+    filter: drop-shadow(0 0 12px rgba(56, 189, 248, 0.6));
+}
+
+.logo-wrapper svg {
+    transition: transform 0.5s ease-in-out;
+}
+
+.logo-wrapper svg:hover {
+    transform: rotate(15deg) scale(1.1);
+}
+
+/* Đảm bảo tiêu đề chính nổi bật */
+h2 {
+    font-weight: 800;
+    letter-spacing: 3px;
+    text-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
+}

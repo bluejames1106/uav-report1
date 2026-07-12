@@ -1,0 +1,2 @@
+Hello embedded system world!
+C++ Stream IO and File IO exercise.

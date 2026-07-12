@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkyLink UAV - Flight History</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="dashboard.css"> <link rel="stylesheet" href="history.css">
+</head>
+<body>
+
+    <div class="wrapper">
+        <header class="main-header">
+            <div class="header-left">
+                <button class="toggle-btn" onclick="toggleSidebar()">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="logo-wrapper">
+                    <svg width="35" height="35" viewBox="0 0 100 100" fill="none">
+                        <rect x="40" y="40" width="20" height="20" rx="4" fill="#38bdf8" />
+                        <path d="M42 42L25 25M58 42L75 25M42 58L25 75M58 58L75 75" stroke="#38bdf8" stroke-width="6" stroke-linecap="round"/>
+                        <circle cx="25" cy="25" r="6" stroke="#38bdf8" stroke-width="2"/>
+                        <circle cx="75" cy="25" r="6" stroke="#38bdf8" stroke-width="2"/>
+                        <circle cx="25" cy="75" r="6" stroke="#38bdf8" stroke-width="2"/>
+                        <circle cx="75" cy="75" r="6" stroke="#38bdf8" stroke-width="2"/>
+                    </svg>
+                    <span>SKYLINK <span style="font-weight: 300; opacity: 0.7;">UAV</span></span>
+                </div>
+            </div>
+            <div class="header-right">
+                <span id="connection-status" class="status-online">● System Live</span>
+            </div>
+        </header>
+
+        <nav id="sidebar" class="sidebar">
+    <ul class="nav-links">
+        <li><a href="dashboard.html"><i class="fas fa-th-large"></i> <span>Dashboard</span></a></li>
+        <li><a href="uav-control.html"><i class="fas fa-gamepad"></i> <span>UAV Control</span></a></li>
+        <li><a href="livemap.html"><i class="fas fa-map-marked-alt"></i> <span>Live Map</span></a></li>
+        <li class="active"><a href="history.html"><i class="fas fa-history"></i> <span>History</span></a></li>
+        <div class="menu-divider"></div>
+        <li><a href="setting.html"><i class="fas fa-user-cog"></i> <span>Settings</span></a></li>
+        <li class="logout"><a href="index.html"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a></li>
+    </ul>
+</nav>
+
+        <main class="content" id="main-content">
+            <div class="dashboard-header">
+                <h2>History Data</h2>
+                <p>Detail log from sensors and UAV position</p>
+            </div>
+
+            <div class="history-container">
+                <div class="table-controls">
+                    <button id="clearLogBtn" class="btn-clear"><i class="fas fa-trash-alt"></i> Clear Log</button>
+                    
+                </div>
+
+                <div class="table-wrapper">
+                    <table id="historyTable">
+                        <thead>
+                            <tr>
+                                <th>Time</th>
+                                <th>Temperature (°C)</th>
+                                <th>Humidity (%)</th>
+                                <th>Gas Level (PPM)</th>
+                                <th>Coordinates (Lat, Lng)</th>
+                                <th>Altitude (m)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="historyBody">
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+
+        <footer class="main-footer">
+            <p>&copy; 2026 SkyLink UAV Lab | Firebase Realtime System</p>
+        </footer>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script src="history.js"></script>
+    <script>
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('closed');
+            document.getElementById('main-content').classList.toggle('shifted');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkyLink UAV - Access</title>
+    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="login-box">
+            <div class="logo-wrapper">
+                <svg width="80" height="80" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="40" y="40" width="20" height="20" rx="4" fill="#38bdf8" />
+                    <path d="M42 42L25 25M58 42L75 25M42 58L25 75M58 58L75 75" stroke="#38bdf8" stroke-width="6" stroke-linecap="round"/>
+                    <circle cx="25" cy="25" r="6" stroke="#38bdf8" stroke-width="2"/>
+                    <circle cx="75" cy="25" r="6" stroke="#38bdf8" stroke-width="2"/>
+                    <circle cx="25" cy="75" r="6" stroke="#38bdf8" stroke-width="2"/>
+                    <circle cx="75" cy="75" r="6" stroke="#38bdf8" stroke-width="2"/>
+                    <path d="M40 30Q50 20 60 30" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" opacity="0.6">
+                        <animate attributeName="opacity" values="0.2;1;0.2" dur="2s" repeatCount="indefinite" />
+                    </path>
+                </svg>
+            </div>
+            
+            <div class="tab-container">
+                <div class="tab active" id="tabLogin">Đăng nhập</div>
+                <div class="tab" id="tabRegister">Đăng ký</div>
+            </div>
+
+            <h2 style="color: #38bdf8; margin-top: 10px;">SKYLINK UAV</h2>
+            <p id="formDescription">Vui lòng đăng nhập để điều khiển</p>
+            
+            <form id="authForm">
+                <div class="input-group">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="email" placeholder="Email của bạn" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="password" placeholder="Mật khẩu" required>
+                </div>
+                <div class="input-group" id="confirmPassGroup" style="display: none;">
+                    <i class="fas fa-check-double"></i>
+                    <input type="password" id="confirmPassword" placeholder="Xác nhận mật khẩu">
+                </div>
+                
+                <button type="submit" id="mainBtn" class="btn-login">LOGIN</button>
+            </form>
+
+            <div id="message"></div>
+        </div>
+    </div>
+
+    <script type="module" src="login.js"></script>
+</body>
+</html>

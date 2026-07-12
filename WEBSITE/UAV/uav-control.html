@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkyLink UAV - Flight Control</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="uav-control.css">
+</head>
+<body>
+
+    <div class="wrapper">
+        <header class="main-header">
+            <div class="header-left">
+                <button class="toggle-btn" onclick="toggleSidebar()">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="logo-wrapper">
+                    <svg width="35" height="35" viewBox="0 0 100 100" fill="none">
+                        <rect x="40" y="40" width="20" height="20" rx="4" fill="#38bdf8" />
+                        <path d="M42 42L25 25M58 42L75 25M42 58L25 75M58 58L75 75" stroke="#38bdf8" stroke-width="6" stroke-linecap="round"/>
+                        <circle cx="25" cy="25" r="6" stroke="#38bdf8" stroke-width="2"/>
+                        <circle cx="75" cy="25" r="6" stroke="#38bdf8" stroke-width="2"/>
+                        <circle cx="25" cy="75" r="6" stroke="#38bdf8" stroke-width="2"/>
+                        <circle cx="75" cy="75" r="6" stroke="#38bdf8" stroke-width="2"/>
+                    </svg>
+                    <span>SKYLINK <span style="font-weight: 300; opacity: 0.7;">UAV</span></span>
+                </div>
+            </div>
+            <div class="header-right">
+                <span id="connection-status" class="status-online">● Telemetry Connected</span>
+            </div>
+        </header>
+
+        <nav id="sidebar" class="sidebar">
+            <ul class="nav-links">
+                <li><a href="dashboard.html"><i class="fas fa-th-large"></i> <span>Dashboard</span></a></li>
+                <li class="active"><a href="uav-control.html"><i class="fas fa-gamepad"></i> <span>UAV Control</span></a></li>
+                <li><a href="livemap.html"><i class="fas fa-map-marked-alt"></i> <span>Live Map</span></a></li>
+                <li><a href="history.html"><i class="fas fa-history"></i> <span>History</span></a></li>
+                <div class="menu-divider"></div>
+                <li><a href="setting.html"><i class="fas fa-user-cog"></i> <span>Settings</span></a></li>
+                <li class="logout"><a href="index.html"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a></li>
+            </ul>
+        </nav>
+
+        <main class="content" id="main-content">
+            <div class="dashboard-header">
+                <h2>UAV Flight & Gimbal Control</h2>
+                <p id="last-telemetry">Telemetry: Connecting...</p>
+            </div>
+
+            <div class="mpu-grid">
+                <div class="mpu-card">
+                    <div class="mpu-card-header">
+                        <i class="fas fa-sync-alt icon-roll"></i>
+                        <h3>Roll (Nghiêng Trái/Phải)</h3>
+                    </div>
+                    <div class="mpu-value"><span id="mpu-roll">0.0</span>°</div>
+                    <div class="progress-bar-bg">
+                        <div id="bar-roll" class="progress-bar-fill fill-roll"></div>
+                    </div>
+                </div>
+                
+                <div class="mpu-card">
+                    <div class="mpu-card-header">
+                        <i class="fas fa-undo-alt icon-pitch"></i>
+                        <h3>Pitch (Chúi Trước/Sau)</h3>
+                    </div>
+                    <div class="mpu-value"><span id="mpu-pitch">0.0</span>°</div>
+                    <div class="progress-bar-bg">
+                        <div id="bar-pitch" class="progress-bar-fill fill-pitch"></div>
+                    </div>
+                </div>
+                
+                <div class="mpu-card">
+                    <div class="mpu-card-header">
+                        <i class="fas fa-compass icon-yaw"></i>
+                        <h3>Yaw (Hướng Mũi UAV)</h3>
+                    </div>
+                    <div class="mpu-value"><span id="mpu-yaw">0.0</span>°</div>
+                    <div class="progress-bar-bg">
+                        <div id="bar-yaw" class="progress-bar-fill fill-yaw"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="video-section">
+                <div class="video-container">
+                    <div class="video-header">
+                        <h3><i class="fas fa-video" style="color: #38bdf8;"></i> Giao Diện Camera Thời Gian Thực</h3>
+                        <div class="ngrok-config">
+                            <input type="text" id="ngrok-url-input" placeholder="Dán link Ngrok (Ví dụ: https://xxx.ngrok-free.app)">
+                            <button onclick="connectCamera()">Kết nối</button>
+                        </div>
+                    </div>
+                    
+                    <div class="video-wrapper-display">
+                        <img id="camera-stream" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'><text x='50%' y='50%' font-size='10' fill='%2364748b' dominant-baseline='middle' text-anchor='middle'>Chưa kết nối luồng Camera</text></svg>" alt="Camera Offline">
+                    </div>
+                    
+                    <div class="gimbal-controls">
+                        <div class="slider-group">
+                            <label><i class="fas fa-arrows-alt-h"></i> Trục Ngang (Pan Servo): <span id="pan-val">90</span>°</label>
+                            <input type="range" id="slider-pan" min="0" max="180" value="90" oninput="controlServo('pan', this.value)">
+                        </div>
+                        <div class="slider-group">
+                            <label><i class="fas fa-arrows-alt-v"></i> Trục Dọc (Tilt Servo): <span id="tilt-val">90</span>°</label>
+                            <input type="range" id="slider-tilt" min="0" max="180" value="90" oninput="controlServo('tilt', this.value)">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="main-footer">
+            <p>&copy; 2026 SkyLink UAV Lab | GCS Control System</p>
+        </footer>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script src="uav-control.js"></script>
+</body>
+</html>

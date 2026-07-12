@@ -1,0 +1,11 @@
+{
+  "hosting": {
+    "site": "uav-3adeb",
+    "public": ".",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}

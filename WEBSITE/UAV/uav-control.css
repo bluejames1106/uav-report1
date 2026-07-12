@@ -1,0 +1,276 @@
+/* ==========================================================================
+   uav-control.css - Trạm Điều Khiển Máy Bay & Cụm Camera Gimbal
+   ========================================================================== */
+
+/* 1. KHỐI THÔNG SỐ TRẠNG THÁI MPU (TELEMETRY GRID) */
+.mpu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin-bottom: 35px;
+}
+
+.mpu-card {
+    background: rgba(30, 41, 59, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(51, 65, 85, 0.7);
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), 
+                box-shadow 0.3s ease, 
+                border-color 0.3s ease;
+}
+
+/* Hiệu ứng phát sáng nhẹ khi di chuột qua các thẻ cảm biến */
+.mpu-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(56, 189, 248, 0.15);
+    border-color: rgba(148, 163, 184, 0.4);
+}
+
+.mpu-card-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+/* Bo tròn và tạo nền tối phía sau các Icon */
+.mpu-card-header i {
+    font-size: 22px;
+    padding: 12px;
+    border-radius: 12px;
+    background: rgba(15, 23, 42, 0.6);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Định dạng màu sắc nhận diện riêng cho từng trục tọa độ */
+.icon-roll  { color: #38bdf8; text-shadow: 0 0 10px rgba(56, 189, 248, 0.4); }
+.icon-pitch { color: #a78bfa; text-shadow: 0 0 10px rgba(167, 139, 250, 0.4); }
+.icon-yaw   { color: #fbbf24; text-shadow: 0 0 10px rgba(251, 191, 36, 0.4); }
+
+.mpu-card-header h3 {
+    font-size: 14px;
+    color: #94a3b8;
+    font-weight: 600;
+    letter-spacing: 0.7px;
+    text-transform: uppercase;
+}
+
+/* Khu vực hiển thị số góc đo lớn */
+.mpu-value {
+    font-size: 38px;
+    font-weight: 800;
+    color: #ffffff;
+    margin-bottom: 18px;
+    font-family: 'Courier New', Courier, monospace; /* Tạo cảm giác font chữ kỹ thuật số */
+    letter-spacing: -0.5px;
+}
+
+/* Thanh tiến trình đồ họa (Progress Bar Background) */
+.progress-bar-bg {
+    background: #0f172a;
+    border-radius: 20px;
+    height: 8px;
+    width: 100%;
+    overflow: hidden;
+    border: 1px solid rgba(51, 65, 85, 0.5);
+}
+
+/* Thanh chạy bên trong (Progress Bar Fill) */
+.progress-bar-fill {
+    height: 100%;
+    width: 50%; /* Trạng thái cân bằng ban đầu nằm ở giữa */
+    border-radius: 20px;
+    transition: width 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Tạo dải màu Gradient chuyển sắc cho thanh chạy */
+.fill-roll  { background: linear-gradient(90deg, #0284c7, #38bdf8); }
+.fill-pitch { background: linear-gradient(90deg, #7c3aed, #a78bfa); }
+.fill-yaw   { background: linear-gradient(90deg, #d97706, #fbbf24); }
+
+
+/* ==========================================================================
+   2. KHU VỰC HIỂN THỊ CAMERA & CẤU HÌNH TRUYỀN DẪN NGROK
+   ========================================================================== */
+.video-section {
+    margin-bottom: 35px;
+}
+
+.video-container {
+    background: rgba(30, 41, 59, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 30px;
+    border-radius: 18px;
+    border: 1px solid rgba(51, 65, 85, 0.7);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+.video-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.video-header h3 {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+/* Cụm nhập liên kết URL mạng của Ngrok */
+.ngrok-config {
+    display: flex;
+    gap: 12px;
+}
+
+.ngrok-config input {
+    background: #0f172a;
+    border: 1px solid #334155;
+    padding: 10px 16px;
+    border-radius: 10px;
+    color: #ffffff;
+    width: 340px;
+    outline: none;
+    font-size: 13px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ngrok-config input:focus {
+    border-color: #38bdf8;
+    box-shadow: 0 0 8px rgba(56, 189, 248, 0.3);
+}
+
+/* Nút bấm kết nối luồng camera */
+.ngrok-config button {
+    background: #38bdf8;
+    color: #0f172a;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 10px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.ngrok-config button:hover {
+    box-shadow: 0 0 15px rgba(56, 189, 248, 0.6);
+    transform: translateY(-1px);
+    background: #7dd3fc;
+}
+
+/* Khung màn hình hiển thị Video Stream */
+.video-wrapper-display {
+    width: 100%;
+    max-width: 720px;
+    height: 440px;
+    margin: 0 auto 30px auto;
+    background: #0f172a;
+    border-radius: 14px;
+    border: 2px dashed #475569;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.6);
+}
+
+#camera-stream {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Đảm bảo video lấp đầy khung hình */
+}
+
+
+/* ==========================================================================
+   3. THANH TRƯỢT ĐIỀU KHIỂN GÓC GIMBAL SERVO (RANGE SLIDERS)
+   ========================================================================== */
+.gimbal-controls {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 35px;
+    background: rgba(15, 23, 42, 0.4);
+    padding: 25px;
+    border-radius: 14px;
+    border: 1px solid rgba(30, 41, 59, 0.8);
+}
+
+.slider-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.slider-group label {
+    font-size: 14px;
+    color: #94a3b8;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+}
+
+/* Nhãn hiển thị số góc độ cạnh thanh trượt */
+.slider-group label span {
+    color: #38bdf8;
+    font-weight: 700;
+    background: rgba(56, 189, 248, 0.12);
+    padding: 2px 8px;
+    border-radius: 6px;
+    margin-left: auto; /* Đẩy giá trị số về sát mép phải */
+    border: 1px solid rgba(56, 189, 248, 0.2);
+}
+
+/* Reset lại kiểu dáng mặc định của trình duyệt cho thanh trượt */
+.slider-group input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 8px;
+    background: #1e293b;
+    border-radius: 6px;
+    outline: none;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* Tùy biến nút kéo tròn của thanh gạt (Dành cho Chrome, Safari, Edge, Opera) */
+.slider-group input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #38bdf8;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(56, 189, 248, 0.7);
+    transition: transform 0.1s ease, background-color 0.2s;
+    border: 2px solid #ffffff;
+}
+
+.slider-group input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.25);
+    background: #7dd3fc;
+}
+
+/* Tùy biến nút kéo tròn của thanh gạt (Dành cho Firefox) */
+.slider-group input[type="range"]::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #38bdf8;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(56, 189, 248, 0.7);
+    transition: transform 0.1s ease;
+    border: 2px solid #ffffff;
+}
+
+.slider-group input[type="range"]::-moz-range-thumb:hover {
+    transform: scale(1.25);
+}
